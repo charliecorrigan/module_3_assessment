@@ -11,8 +11,7 @@ describe "Items API" do
     end
 
     # When I send a GET request to `/api/v1/items`
-    get '/api/v1/items'
-
+    get '/api/v1/items.json'
     # I receive a 200 JSON response containing all items
     expect(response).to be_success
 
@@ -21,12 +20,12 @@ describe "Items API" do
 
     # And each item has an id, name, description, and image_url but not the created_at or updated_at
     expect(items.count).to eq(10)
-    expect(item).to have_key(:id)
-    expect(item).to have_key(:name)
-    expect(item).to have_key(:image_url)
-    expect(item).to have_key(:description)
-    expect(item).to_not have_key(:created_at)
-    expect(item).to_not have_key(:updated_at)
+    expect(item).to have_key("id")
+    expect(item).to have_key("name")
+    expect(item).to have_key("image_url")
+    expect(item).to have_key("description")
+    expect(item).to_not have_key("created_at")
+    expect(item).to_not have_key("updated_at")
   end
 
   it "can retrieve an item by its id" do
