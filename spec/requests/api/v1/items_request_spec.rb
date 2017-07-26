@@ -64,12 +64,22 @@ describe "Items API" do
   end
 
   it "can create a new item" do
-
+    item_params = {name: Faker::Coffee.blend_name,
+                  description: Faker::Coffee.notes,
+                  image_url: Faker::Avatar.image}
   # When I send a POST request to `/api/v1/items` with a name, description, and image_url
+    post '/api/v1/items', params: {item: item_params}
+
   # I receive a 201 JSON  response if the record is successfully created
+    expect(response).to have_http_status(201)
+    item = JSON.parse(response.body)
+
   # And I receive a JSON response containing the id, name, description, and image_url but not the created_at or updated_at
+    expect(item).to have_key("id")
+    expect(item).to have_key("name")
+    expect(item).to have_key("image_url")
+    expect(item).to have_key("description")
+    expect(item).to_not have_key("created_at")
+    expect(item).to_not have_key("updated_at")
   end
 end
-
-
-# * Verify that your non-GET requests work using Postman or curl. (Hint: `ActionController::API`). Why doesn't the default `ApplicationController` support POST and PUT requests?
