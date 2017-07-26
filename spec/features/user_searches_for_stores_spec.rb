@@ -4,8 +4,7 @@ feature 'user searches for stores by zipcode' do
   it "fills in zipcode and clicks search" do
     visit '/'
     fill_in 'search', with: '80202'
-    click_on 'search'
-
+    click_on 'Find Stores'
     expect(current_path).to eq("/search")
 
 # And I should see stores within 25 miles of 80202
