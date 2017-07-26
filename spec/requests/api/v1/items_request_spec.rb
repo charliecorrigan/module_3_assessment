@@ -68,7 +68,7 @@ describe "Items API" do
                   description: Faker::Coffee.notes,
                   image_url: Faker::Avatar.image}
   # When I send a POST request to `/api/v1/items` with a name, description, and image_url
-    post '/api/v1/items', params: {item: item_params}
+    post '/api/v1/items', item: item_params
 
   # I receive a 201 JSON  response if the record is successfully created
     expect(response).to have_http_status(201)
