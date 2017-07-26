@@ -16,3 +16,5 @@
 /log/*.log
 /tmp
 /fixtures
+# Ignore application configuration
+/config/application.yml
