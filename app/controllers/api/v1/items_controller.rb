@@ -3,4 +3,8 @@ class Api::V1::ItemsController < ApiBaseController
     @items = Item.all
   end
 
+  def show
+    @item = Item.find_by(id: (params["id"]).to_i)
+  end
+
 end

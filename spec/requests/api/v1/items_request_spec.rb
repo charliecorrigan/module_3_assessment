@@ -29,14 +29,38 @@ describe "Items API" do
   end
 
   it "can retrieve an item by its id" do
+    Item.create!(name: Faker::Coffee.blend_name,
+                description: Faker::Coffee.notes,
+                image_url: Faker::Avatar.image
+                )
   # When I send a GET request to `/api/v1/items/1`
-  # I receive a 200 JSON response containing the id, name, description, and image_url but not the created_at or updated_at
+
+    get '/api/v1/items/1.json'
+    # I receive a 200 JSON response containing the id, name, description, and image_url but not the created_at or updated_at
+    expect(response).to be_success
+
+    item = JSON.parse(response.body)
+
+    expect(item).to have_key("id")
+    expect(item).to have_key("name")
+    expect(item).to have_key("image_url")
+    expect(item).to have_key("description")
+    expect(item).to_not have_key("created_at")
+    expect(item).to_not have_key("updated_at")
   end
 
   it "can delete an existing item" do
+    item = Item.create!(name: Faker::Coffee.blend_name,
+                        description: Faker::Coffee.notes,
+                        image_url: Faker::Avatar.image
+                        )
 
-  # When I send a DELETE request to `/api/v1/items/1`
-  # I receive a 204 JSON response if the record is successfully deleted
+    # When I send a DELETE request to `/api/v1/items/1`
+    delete '/api/v1/items/1.json'
+
+    # I receive a 204 JSON response if the record is successfully deleted
+    expect(response).to have_http_status(204)
+    expect{Item.find(item.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 
   it "can create a new item" do
