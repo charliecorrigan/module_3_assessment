@@ -11,7 +11,7 @@ describe "Items API" do
     end
 
     # When I send a GET request to `/api/v1/items`
-    get '/api/v1/items.json'
+    get '/api/v1/items'
     # I receive a 200 JSON response containing all items
     expect(response).to be_success
 
@@ -35,7 +35,7 @@ describe "Items API" do
                 )
   # When I send a GET request to `/api/v1/items/1`
 
-    get '/api/v1/items/1.json'
+    get '/api/v1/items/1'
     # I receive a 200 JSON response containing the id, name, description, and image_url but not the created_at or updated_at
     expect(response).to be_success
 
@@ -56,7 +56,7 @@ describe "Items API" do
                         )
 
     # When I send a DELETE request to `/api/v1/items/1`
-    delete '/api/v1/items/1.json'
+    delete '/api/v1/items/1'
 
     # I receive a 204 JSON response if the record is successfully deleted
     expect(response).to have_http_status(204)
