@@ -2,14 +2,17 @@ require 'rails_helper'
 
 feature 'user searches for stores by zipcode' do
   it "fills in zipcode and clicks search" do
-    VCR.use_cassette('store_by_zip') do
+    VCR.use_cassette('second_page_search') do
       visit '/'
       fill_in 'search', with: '80202'
       click_on 'Find Stores'
       expect(current_path).to eq("/search")
 
+      click_on "2"
+
       expect(page).to have_content("17 Total Stores")
-      expect(page).to have_selector(".store", count: 10)
+      expect(page).to have_selector(".store", count: 7)
+
       within first(".store") do
         expect(page).to have_selector(".store-name")
         expect(page).to have_selector(".store-city")
@@ -17,14 +20,6 @@ feature 'user searches for stores by zipcode' do
         expect(page).to have_selector(".store-phone")
         expect(page).to have_selector(".store-type")
       end
-        expect(page).to have_selector(".pagination")
-        expect(page).to have_content("1")
-        expect(page).to_not have_link('1')
-        expect(page).to have_link('2')
     end
   end
 end
-
-
-
-
