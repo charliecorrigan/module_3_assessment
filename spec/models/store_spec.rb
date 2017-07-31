@@ -25,4 +25,12 @@ describe Store, type: :model do
       expect(stores.first).to respond_to(:phone)
     end
   end
+
+    it "returns expected data from fetch_total_count" do
+    VCR.use_cassette('model_total_count') do
+      total_count = Store.fetch_total_count(80202)
+
+      expect(total_count).to eq(17)
+    end
+  end
 end
