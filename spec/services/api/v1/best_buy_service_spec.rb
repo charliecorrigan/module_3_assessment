@@ -14,4 +14,13 @@ describe "best buy service" do
       expect(results.first).to have_key("longName")
     end
   end
+
+  it "returns expected data types and keys" do
+    VCR.use_cassette('best_buy_service_count') do
+      results = BestBuyService.fetch_total_count(80202)
+
+      expect(results).to be_an Integer
+      expect(results).to eq(17)
+    end
+  end
 end
