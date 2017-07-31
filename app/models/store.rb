@@ -9,14 +9,16 @@ attr_reader :name, :type, :city, :distance, :phone
   end
 
   def self.fetch_stores_by_zip(zip)
-    response = Faraday.get("https://api.bestbuy.com/v1/stores(area(#{zip},25))?format=json&pageSize=100&show=storeType,longName,city,distance,phone&apiKey=#{ENV['best_buy_api_key']}")
-    JSON.parse(response.body)["stores"].map do |store_params|
+    store_params = BestBuyService.fetch_stores_by_zip(zip)
+    store_params.map do |store_params|
       store = Store.new(store_params)
     end
   end
 
+
   def self.fetch_total_count(zip)
-    response = Faraday.get("https://api.bestbuy.com/v1/stores(area(#{zip},25))?format=json&pageSize=100&show=storeType,longName,city,distance,phone&apiKey=#{ENV['best_buy_api_key']}")
-    JSON.parse(response.body)["total"]
+    # response = Faraday.get("https://api.bestbuy.com/v1/stores(area(#{zip},25))?format=json&pageSize=100&show=storeType,longName,city,distance,phone&apiKey=#{ENV['best_buy_api_key']}")
+    # JSON.parse(response.body)["total"]
+    BestBuyService.fetch_total_count(zip)
   end
 end
