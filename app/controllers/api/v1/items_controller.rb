@@ -8,7 +8,7 @@ class Api::V1::ItemsController < ApiBaseController
   end
 
   def destroy
-    Item.find_by(id: (params["id"]).to_i).delete
+    Item.find(params["id"]).delete
     render :nothing => true, :status => 204
   end
 
