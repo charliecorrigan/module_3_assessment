@@ -11,7 +11,7 @@ feature 'user searches for stores by zipcode' do
       click_on "2"
 
       expect(page).to have_content("17 Total Stores")
-      expect(page).to have_selector(".store", count: 6)
+      expect(page).to have_selector(".store", count: 7)
 
       within first(".store") do
         expect(page).to have_selector(".store-name")
